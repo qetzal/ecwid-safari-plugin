@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{line-height:150%;}
+a:link { color: #333; text-decoration: none; padding: 2px 8px 2px 8px; }
+a:hover { color: #FFF; background-color: #848484; -webkit-border-radius: 10px; text-shadow: #333 1px 1px 1px; }
+a:active { color: #FFF; background-color: #555; -webkit-border-radius: 10px; text-shadow: #333 1px 1px 1px; }
+</style>
+</head>
+<body>
+<script>
+function openInTab(source){
+	var newTab=safari.self.browserWindow.openTab();
+	newTab.url=source;
+}
+safari.self.browserWindow.addEventListener("command", toggle_ecwid_toolbar, false);
+
+function toggle_ecwid_toolbar(event) {
+	if (event.command === "ecwid_toolbar") {
+
+		var itemArray = safari.extension.toolbarItems;
+		for (var i = 0; i < itemArray.length; ++i) {
+			var item = itemArray[i];
+			if (item.identifier === "ecwid_toolbar_button")
+			{
+				var ecwid_toolbar_button = item;
+			}
+		}
+		const bars = safari.extension.bars;
+		const activeBrowserWindow = safari.application.activeBrowserWindow;
+		for (var i = 0; i < bars.length; ++i) {
+			var bar = bars[i];
+			if (bar.browserWindow === activeBrowserWindow && bar.identifier === "ecwid_links_bar")
+			{
+				if (bar.visible) {
+					bar.hide(true);
+					//ecwid_toolbar_button.image = '';
+				}
+				else {
+					bar.show(true);
+				}
+			}
+		}
+	}
+}
+</script>
+<img align="left" src="ecwid_16_b&amp;w.png">&nbsp;
+<a href="javascript:openInTab('https://my.ecwid.com');">Control Panel</a>&nbsp;&nbsp;
+<a href="javascript:openInTab('http://kb.ecwid.com');">Knowledge Base</a>&nbsp;&nbsp;
+<a href="javascript:openInTab('http://www.ecwid.com/forums/');">Forums</a>&nbsp;&nbsp;
+<a href="javascript:openInTab('http://ideas.ecwid.com');">Ideas</a>
+</body>
+</html>
